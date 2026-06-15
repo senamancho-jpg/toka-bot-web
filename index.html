@@ -1,28 +1,30 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
     <meta charset="UTF-8">
+    <title>TokaBot</title>
 </head>
 <body>
     <button id="btnAnuncio" style="padding: 20px; font-size: 20px;">Ver Video</button>
     <div id="debug" style="margin-top: 20px; color: red;"></div>
 
-    <script src="https://sad.adsgram.ai/js/adsgram.js"></script>
+    <script async src="https://sad.adsgram.ai/js/adsgram.js" onload="console.log('SDK cargado')"></script>
+    
     <script>
-        const debugDiv = document.getElementById('debug');
-        
-        // Verificar si Adsgram cargó
-        if (typeof window.Adsgram === 'undefined') {
-            debugDiv.innerText = "Error: El SDK de Adsgram no cargó. Revisa tu conexión.";
-        } else {
+        // Esperar a que el SDK esté disponible
+        const checkSDK = setInterval(() => {
+            if (window.Adsgram) {
+                clearInterval(checkSDK);
+                document.getElementById('debug').innerText = "SDK listo.";
+                initAds();
+            }
+        }, 500);
+
+        function initAds() {
             const AdController = window.Adsgram.init({ blockId: "4327" });
-            
             document.getElementById("btnAnuncio").addEventListener("click", () => {
-                debugDiv.innerText = "Intentando cargar...";
-                AdController.show().then(() => {
-                    debugDiv.innerText = "Éxito";
-                }).catch((e) => {
-                    debugDiv.innerText = "Error: " + JSON.stringify(e);
+                AdController.show().catch(e => {
+                    document.getElementById('debug').innerText = "Error: " + e.errorDescription;
                 });
             });
         }
