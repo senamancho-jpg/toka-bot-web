@@ -5,11 +5,26 @@
 </head>
 <body>
     <button id="btnAnuncio">Ver Video</button>
+    <p id="log" style="font-size: 10px; color: gray;"></p>
+
     <script src="https://sad.adsgram.ai/js/adsgram.js"></script>
     <script>
+        const logEl = document.getElementById("log");
+        function log(msg) { logEl.innerText += msg + "\n"; }
+
+        // Inicializar Adsgram
         const AdController = window.Adsgram.init({ blockId: "4327" });
+
         document.getElementById("btnAnuncio").addEventListener("click", () => {
-            AdController.show();
+            log("Intentando cargar anuncio...");
+            AdController.show()
+                .then(() => {
+                    log("Anuncio cerrado con éxito");
+                })
+                .catch((error) => {
+                    log("Error: " + error.errorDescription);
+                    alert("Error Adsgram: " + error.errorDescription);
+                });
         });
     </script>
 </body>
