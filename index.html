@@ -6,28 +6,17 @@
 </head>
 <body>
     <button id="btnAnuncio" style="padding: 20px; font-size: 20px;">Ver Video</button>
-    <div id="debug" style="margin-top: 20px; color: red;"></div>
+    <div id="status" style="margin-top: 20px;">Presiona el botón para continuar</div>
 
-    <script async src="https://sad.adsgram.ai/js/adsgram.js" onload="console.log('SDK cargado')"></script>
-    
     <script>
-        // Esperar a que el SDK esté disponible
-        const checkSDK = setInterval(() => {
-            if (window.Adsgram) {
-                clearInterval(checkSDK);
-                document.getElementById('debug').innerText = "SDK listo.";
-                initAds();
-            }
-        }, 500);
+        // Tu Smartlink de Adsterra
+        const smartlink = "https://www.effectivecpmnetwork.com/grmzq2cg?key=5a7f4b0d3fe224d971efa322de85fd82";
 
-        function initAds() {
-            const AdController = window.Adsgram.init({ blockId: "4327" });
-            document.getElementById("btnAnuncio").addEventListener("click", () => {
-                AdController.show().catch(e => {
-                    document.getElementById('debug').innerText = "Error: " + e.errorDescription;
-                });
-            });
-        }
+        document.getElementById("btnAnuncio").addEventListener("click", () => {
+            // Esto abre el anuncio en una nueva ventana o pestaña
+            window.open(smartlink, '_blank');
+            document.getElementById("status").innerText = "Gracias por apoyar el bot.";
+        });
     </script>
 </body>
 </html>
