@@ -1,55 +1,16 @@
+<!DOCTYPE html>
 <html>
-
-index.html
-
-91%
-
 <head>
-
-<script src="https://sad.adsgram.ai/js/adsgram.js"></script>
-
-<style>
-
-4G+
-
--btn-monetizar { background-color: #2487cc; color: white; padding: 15px 30px; border: none;
-
-</style>
-
+    <meta charset="UTF-8">
 </head>
-
 <body>
-
-<button class="btn-monetizar" id="btnAnuncio"> Ver Video y Ganar</button>
-
-<script>
-
-const tg window. Telegram.WebApp;
-
-tg.ready();
-
-// Inicialización correcta
-
-const adPromise = window.Adsgram.init({ blockid: "4327"));
-
-document.getElementById("btnAnuncio").addEventListener("click", () => {
-
-});
-
-adPromise. then (show => {
-
-});
-
-tg. sendData (JSON.stringify({ status: "video visto"}));
-
-}).catch(result => {
-
-});
-
-alert("Error Adsgram:"+result.errorDescription);
-
-</script>
-
+    <button id="btnAnuncio">Ver Video y Ganar</button>
+    <script src="https://sad.adsgram.ai/js/adsgram.js"></script>
+    <script>
+        const AdController = window.Adsgram.init({ blockId: "4327" });
+        document.getElementById("btnAnuncio").addEventListener("click", () => {
+            AdController.show();
+        });
+    </script>
 </body>
-
 </html>
