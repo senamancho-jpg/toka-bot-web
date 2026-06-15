@@ -4,28 +4,28 @@
     <meta charset="UTF-8">
 </head>
 <body>
-    <button id="btnAnuncio">Ver Video</button>
-    <p id="log" style="font-size: 10px; color: gray;"></p>
+    <button id="btnAnuncio" style="padding: 20px; font-size: 20px;">Ver Video</button>
+    <div id="debug" style="margin-top: 20px; color: red;"></div>
 
     <script src="https://sad.adsgram.ai/js/adsgram.js"></script>
     <script>
-        const logEl = document.getElementById("log");
-        function log(msg) { logEl.innerText += msg + "\n"; }
-
-        // Inicializar Adsgram
-        const AdController = window.Adsgram.init({ blockId: "4327" });
-
-        document.getElementById("btnAnuncio").addEventListener("click", () => {
-            log("Intentando cargar anuncio...");
-            AdController.show()
-                .then(() => {
-                    log("Anuncio cerrado con éxito");
-                })
-                .catch((error) => {
-                    log("Error: " + error.errorDescription);
-                    alert("Error Adsgram: " + error.errorDescription);
+        const debugDiv = document.getElementById('debug');
+        
+        // Verificar si Adsgram cargó
+        if (typeof window.Adsgram === 'undefined') {
+            debugDiv.innerText = "Error: El SDK de Adsgram no cargó. Revisa tu conexión.";
+        } else {
+            const AdController = window.Adsgram.init({ blockId: "4327" });
+            
+            document.getElementById("btnAnuncio").addEventListener("click", () => {
+                debugDiv.innerText = "Intentando cargar...";
+                AdController.show().then(() => {
+                    debugDiv.innerText = "Éxito";
+                }).catch((e) => {
+                    debugDiv.innerText = "Error: " + JSON.stringify(e);
                 });
-        });
+            });
+        }
     </script>
 </body>
 </html>
